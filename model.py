@@ -16,14 +16,17 @@ df = pd.read_csv("data.csv")
 df.drop(['Shipment_ID'], axis=1, inplace=True)
 df.drop(['Transport_Mode'], axis=1, inplace=True)
 
+# Handle missing values in target
+df = df.dropna(subset=["Is_Delayed"])
+
 # -----------------------------
 # created powerful features
 # -----------------------------
-traffic_map = {"Low": 1, "Medium": 2, "High": 3}
-weather_map = {"Clear": 0, "Rain": 1, "Storm": 2, "Fog": 3}
+# traffic_map = {"Low": 1, "Medium": 2, "High": 3}
+# weather_map = {"Clear": 0, "Rain": 1, "Storm": 2, "Fog": 3, "Snow": 3}
 
-df["Traffic_Distance"] = df["Distance_km"] * df["Traffic_Level"].map(traffic_map)
-df["Weather_Risk"] = df["Weather_Condition"].map(weather_map)
+df["Traffic_Distance"] = df["Distance_km"] * df["Traffic_Level"].map({"Low": 1, "Medium": 2, "High": 3})
+df["Weather_Risk"] = df["Weather_Condition"].map
 df.drop(["Distance_km", "Traffic_Level", "Weather_Condition"], axis=1, inplace=True)
 
 # -----------------------------
